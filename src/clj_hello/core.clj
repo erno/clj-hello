@@ -23,5 +23,7 @@
   (println "hello from init function! env:" (System/getenv "GAE_ENV")))
 
 (defroutes app
-  (GET "/" [] (str "<h1>Hello, "  (or (user-email) "stranger") "</h1>" (login-link)))
+  (GET "/" [] (str "<h1>Hello, "  (or (user-email) "stranger") "</h1>"
+                   (login-link)
+                   "<p> Eval result:" (eval '(+ 1 1))))
   (route/not-found "<h1>Page not found</h1>"))
