@@ -2,11 +2,19 @@
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [clojure.tools.nrepl.server :as nrepl-server])
-  (:import (com.google.appengine.api.users User UserService UserServiceFactory)))
+  (:import
+   (com.google.appengine.api.users User UserService UserServiceFactory)
+   (java.util.logging Logger)))
+
+(def gae-log (Logger/getLogger "clj-hello"))
+
+(defn log-info
+  [& args]
+  (.info gae-log (apply pr-str args)))
 
 (defn user-email
   []
-  (println (UserServiceFactory/getUserService))
+  (log-info (UserServiceFactory/getUserService))
   (some-> (UserServiceFactory/getUserService)
           (.getCurrentUser)
           (.getEmail)))
@@ -20,7 +28,7 @@
 
 (defn init-app
   []
-  (println "hello from init function! env:" (System/getenv "GAE_ENV")))
+  (log-info "hello from init function! env:" (System/getenv "GAE_ENV")))
 
 (defroutes app
   (GET "/" [] (str "<h1>Hello, "  (or (user-email) "stranger") "</h1>"
