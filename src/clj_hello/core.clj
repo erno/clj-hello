@@ -32,14 +32,25 @@
   []
   (log-info "hello from init function! env:" (System/getenv "GAE_ENV")))
 
+(defn visit-counter []
+  (let [current-count (datastore/get-one "counter" "visitors")
+        new-count (if (nil? current-count)
+                    1
+                    (inc current-count))]
+    (datastore/put-replace "counter" "visitors" new-count)
+    (str "<p> Visit counter:" new-count)))
+
+(defn eval-output []
+  (str "<p> Eval result:") (eval '(+ 1 1)))
+
 (defroutes app
   (GET "/" [] (str "<h1>Hello, "  (or (user-email) "stranger") "</h1>"
                    (login-link)
-
-                   "<p> Eval result:" (eval '(+ 1 1))))
+                   (eval-output)
+                   (visit-counter)))
 
   (GET "/write" []
-       (datastore/put "fop" (str "x" (s/join "" (datastore/get "fop")))))
+       (datastore/put-append "rwentity" "fop" (str "x" (s/join "" (datastore/get-all "fop")))))
   (GET "/read" []
-       (s/join "" (datastore/get "fop")))
+       (s/join "" (datastore/get-all "rwentity" "fop")))
   (route/not-found "<h1>Page not found</h1>"))
