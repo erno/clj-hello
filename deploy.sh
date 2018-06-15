@@ -9,4 +9,6 @@ cd target/war
 jar xf ../uberjar/*standalone.war
 cd ../..
 ln -s ../../../appengine-web.xml target/war/WEB-INF/
-appcfg.sh update target/war
+#appcfg.sh update target/war
+cd target/war
+gcloud app deploy
