@@ -6,7 +6,7 @@ if [ -d "target/war" ]; then
 fi
 mkdir target/war
 cd target/war
-jar xf ../*standalone.war
+jar xf ../uberjar/*standalone.war
 cd ../..
 ln -s ../../../appengine-web.xml target/war/WEB-INF/
 appcfg.sh update target/war
