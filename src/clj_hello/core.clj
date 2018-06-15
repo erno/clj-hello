@@ -11,10 +11,17 @@
           (.getCurrentUser)
           (.getEmail)))
 
+(defn login-link
+  []
+  (str "<a href='"
+   (some-> (UserServiceFactory/getUserService)
+           (.createLoginURL "/"))
+   "'>Login</a>"))
+
 (defn init-app
   []
   (println "hello from init function! env:" (System/getenv "GAE_ENV")))
 
 (defroutes app
-  (GET "/" [] (str "<h1>Hello, "  (or (user-email) "stranger") "</h1>"))
+  (GET "/" [] (str "<h1>Hello, "  (or (user-email) "stranger") "</h1>" (login-link)))
   (route/not-found "<h1>Page not found</h1>"))
