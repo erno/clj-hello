@@ -1,3 +1,5 @@
+;; lifted from: http://lambda-startup.com/developing-clojure-on-app-engine/
+
 (ns clj-hello.appengine
   (:require [clj-hello.core :as handler])
   (:use ring.adapter.jetty))
