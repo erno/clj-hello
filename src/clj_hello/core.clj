@@ -41,7 +41,7 @@
     (str "<p> Visit counter:" new-count)))
 
 (defn eval-output []
-  (str "<p> Eval result:" (eval '(+ 1 1))))
+  (str "<p> Eval result:" (eval '(+ 1 2))))
 
 (defroutes app
   (GET "/" [] (str "<h1>Hello, "  (or (user-email) "stranger") "</h1>"
@@ -50,7 +50,7 @@
                    (visit-counter)))
 
   (GET "/write" []
-       (datastore/put-append "rwentity" "fop" (str "x" (s/join "" (datastore/get-all "fop")))))
+       (datastore/put-append "rwentity" "fop" (str "x" (s/join "" (datastore/get-all "rwentity ""fop")))))
   (GET "/read" []
        (s/join "" (datastore/get-all "rwentity" "fop")))
   (route/not-found "<h1>Page not found</h1>"))
