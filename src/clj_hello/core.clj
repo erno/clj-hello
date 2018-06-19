@@ -41,7 +41,7 @@
     (str "<p> Visit counter:" new-count)))
 
 (defn eval-output []
-  (str "<p> Eval result:") (eval '(+ 1 1)))
+  (str "<p> Eval result:" (eval '(+ 1 1))))
 
 (defroutes app
   (GET "/" [] (str "<h1>Hello, "  (or (user-email) "stranger") "</h1>"
