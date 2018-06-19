@@ -50,7 +50,7 @@
                    (visit-counter)))
 
   (GET "/write" []
-       (datastore/put-append "rwentity" "fop" (str "x" (s/join "" (datastore/get-all "rwentity ""fop")))))
+       (datastore/put-append "rwentity" "fop" (str "x" (s/join "" (datastore/get-all "rwentity" "fop")))))
   (GET "/read" []
        (s/join "" (datastore/get-all "rwentity" "fop")))
   (route/not-found "<h1>Page not found</h1>"))
